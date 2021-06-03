@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <title>Babylon.js sample code</title>
+
+    <!-- Babylon.js -->
+    <script src="https://code.jquery.com/pep/0.4.2/pep.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.6.2/dat.gui.min.js"></script>
+    <script src="https://preview.babylonjs.com/ammo.js"></script>
+    <script src="https://preview.babylonjs.com/cannon.js"></script>
+    <script src="https://preview.babylonjs.com/Oimo.js"></script>
+    <script src="https://preview.babylonjs.com/earcut.min.js"></script>
+    <script src="https://preview.babylonjs.com/babylon.js"></script>
+    <script src="https://preview.babylonjs.com/materialsLibrary/babylonjs.materials.min.js"></script>
+    <script src="https://preview.babylonjs.com/proceduralTexturesLibrary/babylonjs.proceduralTextures.min.js"></script>
+    <script src="https://preview.babylonjs.com/postProcessesLibrary/babylonjs.postProcess.min.js"></script>
+    <script src="https://preview.babylonjs.com/loaders/babylonjs.loaders.js"></script>
+    <script src="https://preview.babylonjs.com/serializers/babylonjs.serializers.min.js"></script>
+    <script src="https://preview.babylonjs.com/gui/babylon.gui.min.js"></script>
+    <script src="https://preview.babylonjs.com/inspector/babylon.inspector.bundle.js"></script>
+
+    <style>
+        html,
+        body {
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        #renderCanvas {
+            width: 100%;
+            height: 100%;
+            touch-action: none;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="renderCanvas"></canvas>
+    <script>
+        var canvas = document.getElementById("renderCanvas");
+
+        var camera = null;
+        var engine = null;
+        var scene = null;
+        var sceneToRender = null;
+
+        var createDefaultEngine = function () {
+            return new BABYLON.Engine(canvas, true, {
+                preserveDrawingBuffer: true,
+                stencil: true,
+                disableWebGL2Support: false
+            });
+        };
+
+        const createScene = function () {
+
+            scene = new BABYLON.Scene(engine);
+
+            scene.enablePhysics();
+
+            criarCenario();
+
+            return scene;
+        };
+
+        /*
+                                CONSTRUA A SUA RUBE GOLDBERG MACHINE
+
+        ------ Exemplos youtube -----------
+        https://www.youtube.com/watch?v=dwn26wZrHYw&ab_channel=SantiagoJBSantiagoJB
+
+        -----------------------------------
+
+         LINK DO CANVAS: https://facens.instructure.com/courses/6504/assignments/55195?module_item_id=209947
+
+         Exemplo: Babylon: https://playground.babylonjs.com/#3I55DK#0 (Links para um site externo.)
+
+         Baseado no exemplo acima, construa a sua máquina com 10 etapas diferentes. 
+
+          • Pelo menos 5 etapas deverão ter uma animação envolvida.
+          • Cada etapa vale até um ponto.
+          • Usar textura, áudio, partículas e os demais recursos apresentados.
+          • Enviar o link do GitHub
+          • Enviar o link do projeto publicado.
+
+            ========== AF - Computação Gráfica II ==========
+                Vinícius Espinosa de Oliveira - 180853
+                Samuel Ferraz de Araujo - 180207
+            ================================================
+
+            1º Etapa: 
+                - Roda d'agua que gira e tira a bolinha do lugar
+                - Andar por uma plataforma
+                - Cair num copo
+            2º Etapa: 
+
+            3º Etapa:
+
+            4º Etapa:
+
+            5º Etapa:
+
+            6º Etapa:
+
+            7º Etapa:
+
+            8º Etapa:
+
+            9º Etapa:
+
+            10º Etapa:
+        */
+
+        const criarCenario = function () {
+            // Criar câmera
+            criarCamera();
+
+            // Criar iluminação
+            criarIluminacao();
+
+            // Criar etapas
+            criarEtapas();
+        }
+
+        const criarCamera = function () {
+            scene.collisionsEnabled = true;
+            //camera = new BABYLON.ArcRotateCamera("camera", Math.PI / 2, Math.PI / 4, 10, new BABYLON.Vector3(
+            // 0, 10, 50), scene);
+            camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 5, -10), scene);
+            scene.activeCamera = camera;
+            scene.activeCamera.attachControl(canvas, true);
+            camera.lowerRadiusLimit = -100;
+            camera.upperRadiusLimit = 900;
+            camera.wheelDeltaPercentage = 0.01;
+            camera.checkCollision = true;
+        }
+
+        const criarIluminacao = function () {
+            var luz = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, 0), scene);
+            luz.intensity = 0.6;
+            luz.specular = BABYLON.Color3.Black();
+
+            var luz2 = new BABYLON.DirectionalLight("light2", new BABYLON.Vector3(0, -0.5, -1.0), scene);
+            luz2.position = new BABYLON.Vector3(0, 5, 5);
+        }
+
+        const criarCaminhoCaixaComBorda = function () {
+            var caixa = BABYLON.SceneLoader.ImportMeshAsync(null, "./models/", "caixa_sem_borda.babylon", scene)
+                .then((result) => {
+
+                    var meshes = result.meshes;
+
+                    var objeto = vincularMeshes(meshes);
+
+                    objeto.rotation.x = Math.PI / 9;
+
+                    objeto.physicsImpostor = new BABYLON.PhysicsImpostor(objeto, BABYLON.PhysicsImpostor
+                        .BoxImpostor, {
+                            mass: 0,
+                            restitution: 0.9,
+                            friction: 1
+                        })
+                });
+        }
+
+        const vincularMeshes = function (meshes) {
+            var objetoVinculado = BABYLON.Mesh.MergeMeshes(meshes);
+            return objetoVinculado;
+        }
+
+        //#region engine config
+        var engine;
+        var scene;
+        initFunction = async function () {
+            var asyncEngineCreation = async function () {
+                try {
+                    return createDefaultEngine();
+                } catch (e) {
+                    console.log(
+                        "the available createEngine function failed. Creating the default engine instead"
+                    );
+                    return createDefaultEngine();
+                }
+            }
+
+            engine = await asyncEngineCreation();
+            if (!engine) throw 'engine should not be null.';
+            scene = createScene();
+        };
+        initFunction().then(() => {
+            sceneToRender = scene
+            engine.runRenderLoop(function () {
+                if (sceneToRender && sceneToRender.activeCamera) {
+                    sceneToRender.render();
+                }
+            });
+        });
+
+        // Resize
+        window.addEventListener("resize", function () {
+            engine.resize();
+        });
+        //#endregion
+    </script>
+</body>
+
+</html>
