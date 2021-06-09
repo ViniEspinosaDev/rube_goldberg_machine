@@ -116,53 +116,31 @@
             // Criar etapas
             criarEtapas();
 
-            criarDancarina();
+            createGUI();
         }
 
-        const criarDancarina = function () {
-            // Ground
-            var ground = BABYLON.MeshBuilder.CreateGround("ground", {
-                height: 50,
-                width: 50,
-                subdivisions: 4
-            }, scene);
-            var groundMaterial = new BABYLON.StandardMaterial("groundMaterial", scene);
-            groundMaterial.diffuseTexture = new BABYLON.Texture("./textures/wood.jpg", scene);
-            groundMaterial.diffuseTexture.uScale = 30;
-            groundMaterial.diffuseTexture.vScale = 30;
-            groundMaterial.specularColor = new BABYLON.Color3(.1, .1, .1);
-            ground.material = groundMaterial;
+        const createGUI = function () {
+            // GUI
+            var advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
 
-            // Load hero character
-            BABYLON.SceneLoader.ImportMesh("", "https://assets.babylonjs.com/meshes/", "HVGirl.glb", scene,
-                function (newMeshes, particleSystems, skeletons, animationGroups) {
-                    var hero = newMeshes[0];
+            var instructions = generateMessageUI(
+                "AF - Vinícius Espinosa de Oliveira - 180853 & Samuel Ferraz de Araujo - 180207", BABYLON.GUI
+                .Control
+                .HORIZONTAL_ALIGNMENT_CENTER, BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP);
 
-                    //Scale the model down        
-                    hero.scaling.scaleInPlace(0.1);
+            advancedTexture.addControl(instructions);
+        }
 
-                    //Hero character variables 
-                    var heroSpeed = 0.03;
-                    var heroSpeedBackwards = 0.01;
-                    var heroRotationSpeed = 0.1;
+        const generateMessageUI = function (text, horizontal, vertical) {
+            var instructions = new BABYLON.GUI.TextBlock();
 
-                    var animating = true;
+            instructions.text = text;
+            instructions.color = "yellow";
+            instructions.fontSize = 20;
+            instructions.textHorizontalAlignment = horizontal;
+            instructions.textVerticalAlignment = vertical;
 
-                    const sambaAnim = scene.getAnimationGroupByName("Samba");
-
-                    //Rendering loop (executed for everyframe)
-                    scene.onBeforeRenderObservable.add(() => {
-
-                        //Manage animations to be played  
-                        if (true) {
-                            if (!animating) {
-                                animating = true;
-                                //Samba!
-                                sambaAnim.start(true, 1.0, sambaAnim.from, sambaAnim.to, false);
-                            }
-                        }
-                    });
-                });
+            return instructions;
         }
 
         const criarMapa = function () {
@@ -181,24 +159,17 @@
 
         const criarCamera = function () {
             scene.collisionsEnabled = true;
-            //camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(-10, 22, -55), scene); // CERTO
-            // camera = new BABYLON.ArcRotateCamera("camera1", new BABYLON.Vector3(-10, 45, -20), scene);
             camera = new BABYLON.ArcRotateCamera("Camera", -Math.PI / 4, Math.PI / 4, 1, new BABYLON.Vector3(10,
                 40, -30), scene);
             camera.attachControl(canvas, true);
             scene.activeCamera = camera;
             scene.activeCamera.attachControl(canvas, true);
             camera.lowerRadiusLimit = 5;
-            // camera.upperRadiusLimit = 900;
-            // camera.wheelDeltaPercentage = 0.01;
-            // camera.checkCollision = true;
+            camera.upperRadiusLimit = 100;
         }
 
         const criarIluminacao = function () {
             var luz = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 0, -100), scene);
-            //luz.intensity = 1;
-            //luz.specular = BABYLON.Color3.Black();
-
             var luz2 = new BABYLON.HemisphericLight("light2", new BABYLON.Vector3(0, -100, -100), scene);
             luz2.position = new BABYLON.Vector3(0, 5, 5);
         }
@@ -230,7 +201,7 @@
                                 .BoxImpostor, {
                                     mass: 2,
                                     restitution: 0.0,
-                                    friction: 0.4
+                                    friction: 0.35
                                 }, scene);
                         } else if (nomeMesh.includes("chao") || nomeMesh.includes("parede")) {
                             mesh.physicsImpostor = new BABYLON.PhysicsImpostor(mesh, BABYLON
