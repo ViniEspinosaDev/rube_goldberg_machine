@@ -1,0 +1,36 @@
+[{
+    "nome": "caixa_sem_borda",
+    "vetorRotacao": {
+        "x": 0,
+        "y": 0.349065,
+        "z": 0
+    },
+    "vetorPosicao": {
+        "x": 0,
+        "y": 3,
+        "z": 0
+    },
+    "vetorFisica": {
+        "massa": 0,
+        "restituicao": 0.9,
+        "friccao": 1
+    }
+},
+{
+    "nome": "esfera",
+    "vetorRotacao": {
+        "x": 0,
+        "y": 0.349065,
+        "z": 0
+    },
+    "vetorPosicao": {
+        "x": 0,
+        "y": 3,
+        "z": 0
+    },
+    "vetorFisica": {
+        "massa": 0,
+        "restituicao": 0.9,
+        "friccao": 1
+    }
+}]
