@@ -125,7 +125,7 @@
 
             var instructions = generateMessageUI(
                 "AF - Vinícius Espinosa de Oliveira - 180853 & Samuel Ferraz de Araujo - 180207", BABYLON.GUI
-                    .Control
+                .Control
                 .HORIZONTAL_ALIGNMENT_CENTER, BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP);
 
             advancedTexture.addControl(instructions);
@@ -184,7 +184,7 @@
         //#region Criar objetos
         const importarMeshBlenderFixos = function (informacoes, agrupar) {
             var objeto = BABYLON.SceneLoader.ImportMeshAsync(null, "./models/", informacoes.nome + ".babylon",
-                scene)
+                    scene)
                 .then((result) => {
 
                     var meshes = result.meshes;
@@ -200,18 +200,18 @@
                             mesh.physicsImpostor = new BABYLON.PhysicsImpostor(mesh, BABYLON
                                 .PhysicsImpostor
                                 .BoxImpostor, {
-                                mass: 1,
-                                restitution: 0.0,
-                                friction: 0.35
-                            }, scene);
+                                    mass: 1,
+                                    restitution: 0.0,
+                                    friction: 0.35
+                                }, scene);
                         } else if (nomeMesh.includes("chao") || nomeMesh.includes("parede")) {
                             mesh.physicsImpostor = new BABYLON.PhysicsImpostor(mesh, BABYLON
                                 .PhysicsImpostor
                                 .BoxImpostor, {
-                                mass: 0,
-                                restitution: 0.1,
-                                friction: 0.1
-                            }, scene);
+                                    mass: 0,
+                                    restitution: 0.1,
+                                    friction: 0.1
+                                }, scene);
                         } else if (nomeMesh.includes("esfera")) {
 
                             if (nomeMesh == "esferaMovel") {
@@ -222,19 +222,19 @@
                             mesh.physicsImpostor = new BABYLON.PhysicsImpostor(mesh, BABYLON
                                 .PhysicsImpostor
                                 .SphereImpostor, {
-                                mass: 5,
-                                restitution: 0.1,
-                                friction: 0.1
-                            }, scene);
+                                    mass: 2,
+                                    restitution: 0.1,
+                                    friction: 0.1
+                                }, scene);
                             //createParticle(mesh);
                         } else if (nomeMesh.includes("helice")) {
                             mesh.physicsImpostor = new BABYLON.PhysicsImpostor(mesh, BABYLON
                                 .PhysicsImpostor
                                 .MeshImpostor, {
-                                mass: informacoes.vetorFisica.massa,
-                                restitution: informacoes.vetorFisica.restituicao,
-                                friction: informacoes.vetorFisica.friccao
-                            }, scene);
+                                    mass: informacoes.vetorFisica.massa,
+                                    restitution: informacoes.vetorFisica.restituicao,
+                                    friction: informacoes.vetorFisica.friccao
+                                }, scene);
 
                             scene.registerBeforeRender(() => {
 
@@ -247,15 +247,14 @@
                                 }
                             });
 
-                        }
-                        else if (nomeMesh.includes("placa")) {
+                        } else if (nomeMesh.includes("placa")) {
                             mesh.physicsImpostor = new BABYLON.PhysicsImpostor(mesh, BABYLON
                                 .PhysicsImpostor
                                 .MeshImpostor, {
-                                mass: informacoes.vetorFisica.massa,
-                                restitution: informacoes.vetorFisica.restituicao,
-                                friction: informacoes.vetorFisica.friccao
-                            }, scene);
+                                    mass: informacoes.vetorFisica.massa,
+                                    restitution: informacoes.vetorFisica.restituicao,
+                                    friction: informacoes.vetorFisica.friccao
+                                }, scene);
 
                             scene.registerBeforeRender(() => {
 
@@ -269,7 +268,7 @@
                                     soltarSom(ratinho);
 
                                 } else if (esfera && !placou && mesh.intersectsMesh(esfera,
-                                    true)) {
+                                        true)) {
                                     placou = true;
                                     soltarSom(uepa);
                                 }
@@ -278,10 +277,10 @@
                             mesh.physicsImpostor = new BABYLON.PhysicsImpostor(mesh, BABYLON
                                 .PhysicsImpostor
                                 .MeshImpostor, {
-                                mass: informacoes.vetorFisica.massa,
-                                restitution: informacoes.vetorFisica.restituicao,
-                                friction: informacoes.vetorFisica.friccao
-                            }, scene);
+                                    mass: informacoes.vetorFisica.massa,
+                                    restitution: informacoes.vetorFisica.restituicao,
+                                    friction: informacoes.vetorFisica.friccao
+                                }, scene);
                         }
                     })
                 });
@@ -290,10 +289,10 @@
         const soltarSomAmbiente = function () {
             somAmbiente = new BABYLON.Sound("bounce", `./sounds/ace_of_spades_motorhead.mp3`, scene,
                 null, {
-                loop: false,
-                autoplay: true,
-                volume: 0.1
-            });
+                    loop: false,
+                    autoplay: true,
+                    volume: 0.1
+                });
         }
 
 
@@ -354,50 +353,50 @@
 
             const bounce = new BABYLON.Sound("bounce", `./sounds/${som}.mp3`, scene,
                 null, {
-                loop: false,
-                autoplay: true,
-                volume: volume
-            });
+                    loop: false,
+                    autoplay: true,
+                    volume: volume
+                });
         }
 
         //#endregion
 
         const objetos = [{
-            "nome": "aaaa",
-            "vetorRotacao": {
-                "x": 0,
-                "y": 0,
-                "z": 0,
+                "nome": "aaaa",
+                "vetorRotacao": {
+                    "x": 0,
+                    "y": 0,
+                    "z": 0,
+                },
+                "vetorPosicao": {
+                    "x": 0,
+                    "y": 0,
+                    "z": 0,
+                },
+                "vetorFisica": {
+                    "massa": 0,
+                    "restituicao": 0.9,
+                    "friccao": 1,
+                },
             },
-            "vetorPosicao": {
-                "x": 0,
-                "y": 0,
-                "z": 0,
+            {
+                "nome": "esfera",
+                "vetorRotacao": {
+                    "x": 0,
+                    "y": 0,
+                    "z": 0,
+                },
+                "vetorPosicao": {
+                    "x": 0,
+                    "y": 2,
+                    "z": 0,
+                },
+                "vetorFisica": {
+                    "massa": 1,
+                    "restituicao": 0.9,
+                    "friccao": 1,
+                },
             },
-            "vetorFisica": {
-                "massa": 0,
-                "restituicao": 0.9,
-                "friccao": 1,
-            },
-        },
-        {
-            "nome": "esfera",
-            "vetorRotacao": {
-                "x": 0,
-                "y": 0,
-                "z": 0,
-            },
-            "vetorPosicao": {
-                "x": 0,
-                "y": 2,
-                "z": 0,
-            },
-            "vetorFisica": {
-                "massa": 1,
-                "restituicao": 0.9,
-                "friccao": 1,
-            },
-        },
         ];
 
         //#region engine config
