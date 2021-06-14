@@ -1,4 +1,4 @@
-Exporter version: 2.80.1, Blender version: 2.92.0
+Exporter version: 2.80.1, Blender version: 2.93.0
 ========= Conversion from Blender to Babylon.js =========
 	Scene settings used :
 		Inline textures     :  false
@@ -9,7 +9,7 @@ Exporter version: 2.80.1, Blender version: 2.92.0
 		Vert Color Precision:  3
 		Mat Weight Precision:  2
 		Keep Z-up r-handed  :  no
-		Texture directory   :  C:\Users\espin\OneDrive\Documentos\viniciusEspinosa\Academico\Faculdade\setimosemestre\CompGraf\Exercicios\AF\models\
+		Texture directory   :  E:\Estudos\7º semestre\Computação gráfica ll\rube_goldberg_machine-main\models\
 	Python World class constructor completed
 	processing begun of camera (UniversalCamera):  Camera
 	processing begun of mesh:  Cubo.001
@@ -1128,8 +1128,10 @@ Exporter version: 2.80.1, Blender version: 2.92.0
 		num uvs2           :  0
 		num colors         :  0
 		num triangles      :  12
-	processing begun of mesh:  Cubo.029
+	processing begun of mesh:  cube2
 		processing begun of material:  Materiais.102
+			processing texture telhado
+				texture type:  diffuseTexture, mapped using: "Mapa UV"
 		num positions      :  29
 		num normals        :  29
 		num tangents       :  0
@@ -1320,7 +1322,9 @@ Exporter version: 2.80.1, Blender version: 2.92.0
 		num colors         :  0
 		num triangles      :  12
 	processing begun of mesh:  parede
-		processing begun of material:  Materiais
+		processing begun of material:  Material madeira
+			processing texture wood
+				texture type:  diffuseTexture, mapped using: "Mapa UV"
 		num positions      :  4
 		num normals        :  4
 		num tangents       :  0
@@ -1500,8 +1504,10 @@ Exporter version: 2.80.1, Blender version: 2.92.0
 		num uvs2           :  0
 		num colors         :  0
 		num triangles      :  2
-	processing begun of mesh:  Cubo.019
+	processing begun of mesh:  cube1
 		processing begun of material:  Materiais.115
+			processing texture telhado
+				texture type:  diffuseTexture, mapped using: "Mapa UV"
 		num positions      :  29
 		num normals        :  29
 		num tangents       :  0
@@ -1652,7 +1658,7 @@ Exporter version: 2.80.1, Blender version: 2.92.0
 	writing mesh:  Cilindro.016
 	writing mesh:  Cilindro.061
 	writing mesh:  Cubo.027
-	writing mesh:  Cubo.029
+	writing mesh:  cube2
 	writing mesh:  Cubo.030
 	writing mesh:  Cubo.031
 	writing mesh:  Cubo.033
@@ -1693,9 +1699,9 @@ Exporter version: 2.80.1, Blender version: 2.92.0
 	writing mesh:  Cone
 	writing mesh:  Cubo
 	writing mesh:  parede.001
-	writing mesh:  Cubo.019
+	writing mesh:  cube1
 	writing mesh:  Cubo.020
 	writing mesh:  placaPressao1.001
 ========= Writing of JSON file completed =========
 ========= end of processing =========
-elapsed time:  0 min, 9.5116 secs
+elapsed time:  0 min, 16.9813 secs
